@@ -4,16 +4,16 @@
  */
 
 if (process.env.NODE_ENV === 'development') {
-	process.env.SOF_AUTHENTICATION = true;
-	process.env.HAS_GRAPHIQL = true;
+  process.env.SOF_AUTHENTICATION = true;
+  process.env.HAS_GRAPHIQL = true;
 }
 
 if (process.env.NODE_ENV === 'production') {
-	process.env.SOF_AUTHENTICATION = true;
-	process.env.HAS_GRAPHIQL = false;
+  process.env.SOF_AUTHENTICATION = true;
+  process.env.HAS_GRAPHIQL = false;
 }
 
 if (process.env.NODE_ENV === 'test') {
-	process.env.SOF_AUTHENTICATION = false;
-	process.env.HAS_GRAPHIQL = false;
+  process.env.SOF_AUTHENTICATION = false;
+  process.env.HAS_GRAPHIQL = false;
 }

@@ -1,21 +1,19 @@
-'use strict';
-
 const superagent = {};
 
-function stub (agent) {
+function stub(agent) {
 	return jest.fn(() => agent);
 }
 
-function __reset () {
+function __reset() {
 	superagent.__mockError = undefined;
 	superagent.__mockResults = undefined;
 }
 
-function __setError (errorMsg) {
+function __setError(errorMsg) {
 	superagent.__mockError = new Error(errorMsg);
 }
 
-function __setResults (results) {
+function __setResults(results) {
 	superagent.__mockResults = results;
 }
 

@@ -10,7 +10,7 @@ charset = utf-8
 trim_trailing_whitespace = false
 
 [*.{js,json}]
-indent_style = tab
+indent_style = space
 indent_size = 2
 
 [*.{yml,md}]
