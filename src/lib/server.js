@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
-const Winston = require('./winston');
+const winston = require('./winston');
 const errorUtils = require('../utils/error.utils');
 const { VERSION, RESOURCE_CONFIG } = require('../config');
 const {
@@ -20,7 +20,7 @@ class Server {
     this.config = config;
 
     // Create an application logger
-    this.logger = new Winston(config.logging);
+    this.logger = winston(config.logging);
 
     // Create our express instance
     this.app = express();

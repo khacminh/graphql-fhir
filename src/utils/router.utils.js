@@ -1,5 +1,5 @@
 /* eslint-disable no-continue */
-const graphqlHTTP = require('express-graphql');
+const { graphqlHTTP } = require('express-graphql');
 const glob = require('glob');
 const path = require('path');
 const { GraphQLSchema, GraphQLObjectType } = require('graphql');
@@ -28,6 +28,7 @@ function generateRootSchema(version, queryFields, mutationFields) {
     });
   }
 
+  const gqlSchema = new GraphQLSchema(schema);
   return new GraphQLSchema(schema);
 }
 
@@ -62,6 +63,7 @@ function graphqlErrorFormatter(logger, version) {
         resource: errorUtils.internal(version, err.message),
       };
 
+    console.log('####', err.stack);
     // Log the resource portions of the error
     logger.error('Unexpected GraphQL Error', extensions.resource);
 
@@ -87,10 +89,13 @@ function configureRoutes(server, options = {}) {
   const { versions = [], resourceConfig = {} } = options;
 
   versions.forEach(version => {
+    console.log('##### 1', version, resourceConfig.profilesRelativePath);
     // Locate all the profile configurations for setting up routes
     const configPaths = glob.sync(
       resolveFromVersion(version, resourceConfig.profilesRelativePath),
     );
+
+    console.log('##### 2', configPaths);
     const configs = configPaths.map(require);
 
     // Grab all the necessary properties from each config
@@ -131,7 +136,8 @@ function configureRoutes(server, options = {}) {
     // Add our graphql endpoint
     server.app.use(
       // Path for this graphql endpoint
-      `/${version}/([$])graphql`,
+      // `/${version}/([$])graphql`,
+      `/${version}/graphql`,
       // Add our validation middlware
       authenticationMiddleware(server),
       // middleware wrapper for Graphql Express
@@ -145,7 +151,8 @@ function configureRoutes(server, options = {}) {
     if (!server.env.IS_PRODUCTION) {
       server.app.use(
         // Path for this graphiql endpoint
-        `/${version}/([$])graphiql`,
+        // `/${version}/([$])graphiql`,
+        `/${version}/graphiql`,
         // middleware wrapper for Graphql Express
         setupGraphqlServer(server, version, {
           customFormatErrorFn: graphqlErrorFormatter(server.logger, version),

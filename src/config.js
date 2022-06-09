@@ -26,17 +26,18 @@ const SERVER_CONFIG = {
     level: 'debug',
   },
   // Auth configurations
-  auth: {
-    name: 'bearer',
-    strategy: smartBearerStrategy({
-      clientId: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-      introspectionUrl: process.env.INTROSPECTION_URL,
-    }),
-    passportOptions: {
-      session: false,
-    },
-  },
+  auth: {},
+  // auth: {
+  //   name: 'bearer',
+  //   strategy: smartBearerStrategy({
+  //     clientId: process.env.CLIENT_ID,
+  //     clientSecret: process.env.CLIENT_SECRET,
+  //     introspectionUrl: process.env.INTROSPECTION_URL,
+  //   }),
+  //   passportOptions: {
+  //     session: false,
+  //   },
+  // },
 };
 
 /**
